@@ -1,0 +1,77 @@
+---
+title: "Get started with dplyr"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+If you obtained a different (correct) answer than those listed on the solutions page, please feel free to post your answer as a comment on that page.
+
+## Exercise 1
+Install and load the package dplyr package. Given the metadata:
+
+```{r}
+library(dplyr)
+df=data.frame(Theoph)
+help(Theoph)
+
+```
+
+
+
+## Exercise 2
+
+Use the `names()` function to get the column names of df.
+
+## Exercise 3
+
+Let's practice using the `select()` function. This allows you to work with just column names instead of indices.
+a) Select only the columns starting from Subject to Dose
+b) Only select the Wt and Dose columns now.
+
+Learn more about dplyr in Section 5 Using `dplyr` on one and multiple Datasets of the online course R Data Pre-Processing & Data Management - Shape your Data! Rated 4.6 / 5 (45 ratings) . 473 students enrolled
+
+## Exercise 4
+Let's look at the sample with Dose greater than 5 mg/kg. Use the filter command() to return df with Dose>5'
+
+## Exercise 5
+
+Great. Now use filter command to return df with `Dose>5` and Time greater than the mean Time.
+
+## Exercise 6
+
+Now let's try sorting the data. Use the arrange() function to
+1) arrange df by weight (descending)
+2) arrange df by weight (ascending)
+3) arrange df by weight (ascending) and Time (descending)
+
+## Exercise 7
+
+The `mutate()` command allows you to create a new column using conditions and data derived from other columns. Use `mutate()` command to create a new column called `trend` that equals to `Time-mean(Time)`. This will tell you how far each time value is from its mean. Set `na.rm=TRUE`.
+
+## Exercise 8
+
+Given the meta-data
+
+76.2 kg Super-middleweight
+72.57 kg Middleweight
+69.85 kg Light-middleweight
+66.68 kg Welterweight
+
+Use the mutate function to classify the weight using the information above. For the purpose of this exercise, considering anything above 76.2 kg to be Super-middleweight and anything below 66.8 to be Welterweight. Anything below 76.2 to be middleweight and anything below 72.57 to be light-middleweight. Store the classifications under weight_cat. Hint: Use ifelse function() with mutate() to achieve this. Store this back into df.
+
+## Exercise 9
+
+
+ 
+Use the `groupby()` command to group df by weight_cat. This allows us to use aggregated functions similar to group by in SQL. Store this in a df called `weight_group`
+
+## Exercise 10
+
+Use the `summarize()` command on the `weight_group` created in Question 9 to find the mean Time and sum of `Dose` received by each weight 
+categories.
+
