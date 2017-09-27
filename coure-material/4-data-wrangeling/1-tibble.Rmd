@@ -16,7 +16,7 @@ library(tidyverse)
 
 ## Creating tibbles {#tibbles}
 
-Almost all of the functions that you'll use in this book produce tibbles, as tibbles are one of the unifying features of the tidyverse. Most other R packages use regular data frames, so you might want to coerce a data frame to a tibble. You can do that with `as_tibble()`:
+Almost all of the functions that you'll use in this course produce tibbles, as tibbles are one of the unifying features of the tidyverse. Most other R packages use regular data frames, so you might want to coerce a data frame to a tibble. You can do that with `as_tibble()`:
 
 ```{r}
 as_tibble(iris)
@@ -140,7 +140,7 @@ Some older functions don't work with tibbles. If you encounter one of these func
 class(as.data.frame(tb))
 ```
 
-The main reason that some older functions don't work with tibble is the `[` function.  We don't use `[` much in this book because `dplyr::filter()` and `dplyr::select()` allow you to solve the same problems with clearer code (but you will learn a little about it in [vector subsetting](#vector-subsetting)). With base R data frames, `[` sometimes returns a data frame, and sometimes returns a vector. With tibbles, `[` always returns another tibble.
+The main reason that some older functions don't work with tibble is the `[` function.  We don't use `[` much in this course because `dplyr::filter()` and `dplyr::select()` allow you to solve the same problems with clearer code (but you will learn a little about it in [vector subsetting](#vector-subsetting)). With base R data frames, `[` sometimes returns a data frame, and sometimes returns a vector. With tibbles, `[` always returns another tibble.
 
 ## Exercises
 

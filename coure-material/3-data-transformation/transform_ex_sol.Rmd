@@ -55,7 +55,7 @@ filter(flights, carrier %in% c("AA", "DL", "UA"))
 filter(flights, between(month, 7, 9))
 ```
 
-*Arrived more than two hours late, but didn’t leave late*
+*Arrived more than two hours late, but didn't leave late*
 ```{r}
 filter(flights, !is.na(dep_delay), dep_delay <= 0, arr_delay > 120)
 ```

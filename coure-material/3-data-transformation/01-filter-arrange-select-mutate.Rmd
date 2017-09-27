@@ -38,6 +38,8 @@ To explore the basic data manipulation verbs of dplyr, we'll use `nycflights13::
 
 ```{r}
 flights
+glimpse(flights)
+str(flights)
 ```
 
 You might notice that this data frame prints a little differently from other data frames you might have used in the past: it only shows the first few rows and all the columns that fit on one screen. (To see the whole dataset, you can run `View(flights)` which will open the dataset in the RStudio viewer). It prints differently because it's a __tibble__. Tibbles are data frames, but slightly tweaked to work better in the tidyverse. For now, you don't need to worry about the differences; we'll come back to tibbles in more detail in [wrangle](#wrangle-intro).
@@ -97,7 +99,8 @@ filter(flights, month == 1, day == 1)
 When you run that line of code, dplyr executes the filtering operation and returns a new data frame. dplyr functions never modify their inputs, so if you want to save the result, you'll need to use the assignment operator, `<-`:
 
 ```{r}
-jan1 <- filter(flights, month == 1, day == 1)
+(jan1 <- filter(flights, month == 1, day == 1))
+(mart3<- filter(flights, month == 3, day == 3))
 ```
 
 R either prints out the results, or saves them to a variable. If you want to do both, you can wrap the assignment in parentheses:
@@ -118,7 +121,10 @@ filter(flights, month = 1)
 
 There's another common problem you might encounter when using `==`: floating point numbers. These results might surprise you!
 
+
 ```{r}
+sqrt(2) ^ 2
+2 == 2
 sqrt(2) ^ 2 == 2
 1/49 * 49 == 1
 ```
@@ -184,6 +190,7 @@ The most confusing result is this one:
 
 ```{r}
 NA == NA
+
 ```
 
 It's easiest to understand why this is true with a bit more context:
@@ -203,6 +210,7 @@ x == y
 If you want to determine if a value is missing, use `is.na()`:
 
 ```{r}
+x <- c(1,3,NA, "AB")
 is.na(x)
 ```
 

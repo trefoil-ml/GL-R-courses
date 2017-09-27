@@ -68,7 +68,7 @@ Use the mutate function to classify the weight using the information above. For 
 
 
  
-Use the `groupby()` command to group df by weight_cat. This allows us to use aggregated functions similar to group by in SQL. Store this in a df called `weight_group`
+Use the `group_by()` command to group df by weight_cat. This allows us to use aggregated functions similar to group by in SQL. Store this in a df called `weight_group`
 
 ## Exercise 10
 
