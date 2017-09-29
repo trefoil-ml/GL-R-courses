@@ -51,6 +51,12 @@ To work with a database in dplyr, you must first connect to it, using `DBI::dbCo
 library(dplyr)
 con <- DBI::dbConnect(RSQLite::SQLite(), path = ":memory:")
 
+# my_db <- src_sqlite("C:/Users/Dell/Dropbox/tridata/ITvitae-R-courses_org/04-databases/data/my_db.sqlite3", create = T)
+
+## download.file(url = "https://ndownloader.figshare.com/files/2292171", 
+#                destfile = "./4-data-wrangeling/data/portal_mammals.sqlite", mode = "wb")
+
+# mammals <- DBI::dbConnect(RSQLite::SQLite(), path #="C:/Users/Dell/Dropbox/tridata/GL-R-courses/4-data-wrangeling/data/portal_mammals.sqlite")
 ```
 
 he arguments to DBI::dbConnect() vary from database to database, but the first argument is always the database backend. It's RSQLite::SQLite() for RSQLite, RMySQL::MySQL() for RMySQL, RPostgreSQL::PostgreSQL() for RPostgreSQL, odbc::odbc() for odbc, and bigrquery::bigquery() for BigQuery. SQLite only needs one other argument: the path to the database. Here we use the special string ":memory:" which causes SQLite to make a temporary in-memory database.

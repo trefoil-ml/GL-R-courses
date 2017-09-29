@@ -132,8 +132,8 @@ ggplot(mpg, aes(x = displ, y = hwy, size = cty)) +
 When mapped to size, the sizes of the points vary continuously with respect to the size (although the legend shows a few representative values)
 
 ```{r error=TRUE}
-#ggplot(mpg, aes(x = displ, y = hwy, shape = cty)) +
- # geom_point()
+ggplot(mpg, aes(x = displ, y = hwy, shape = cty)) +
+  geom_point()
 ```
 
 When a continuous value is mapped to shape, it gives an error.
@@ -159,7 +159,7 @@ Because it is redundant information, in most cases avoid mapping a single variab
 The following example is given in `?geom_point`:
 ```{r ex.3.3.1.5}
 ggplot(mtcars, aes(wt, mpg)) +
-  geom_point(shape = 21, colour = "black", fill = "white", size = 5, stroke = 5)
+  geom_point(shape = 21, colour = "black", fill = "white", size = 5, stroke = 3)
 ```
 
 Stroke changes the color of the border for shapes (22-24).

@@ -72,16 +72,12 @@ tbl(con, sql("select carrier, count(*) as count from flights group by 1")) %>%
 
 ```
 
-
-
 5. Do the same thing using dplyr verbs instead of SQL.
 ####################
 #                  #
 #    Exercise 5    #
 #                  #
 ####################
-
-
 ```{r}
 tbl(con, 'flights') %>%
   group_by(carrier) %>%

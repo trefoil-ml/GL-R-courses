@@ -3,8 +3,8 @@ title: "Introduction to linear regression"
 author: "Hicham Zmarrou"
 date: "`r Sys.Date()`"
 output:
-  word_document: default
   html_document: default
+  word_document: default
 subtitle: Adapted from chapter `3` of An Introduction to Statistical Learning
 ---
 
@@ -117,7 +117,7 @@ Let's use `lm` function ind the base `R` to estimate the model coefficients for 
 
 ```{r kable, results = 'asis'}
 # create a fitted model in one line
-library(knitr)
+#library(knitr)
 lrmod <-  lm(sales ~ TV, data= Advertising)
 summary(lrmod)
 ```
@@ -126,9 +126,7 @@ summary(lrmod)
 we can also save our model in a text file   
 
 ```{r}
-sink("lrmod.txt")
 lm(sales ~ TV, data= Advertising)
-sink()
 ```
 
 
@@ -146,6 +144,7 @@ Let's say that there was a new market where the TV advertising spend was $50,000
 ```{r}
 # manually calculate the prediction
 7.032594 + 0.047537*50
+
 ```
 
 Thus, we would predict Sales of 9,409 widgets in that market.
@@ -160,12 +159,15 @@ Let's make predictions for the smallest and largest observed values of x, and th
 
 ```{r}
 
-ggplot() + geom_point(data = Advertising,aes(TV,sales), color = "blue") 
+#ggplot(data = Advertising) + 
+#  geom_point(mapping = aes(x = TV, y = sales)) +
+##  geom_smooth(mapping = aes(x = TV, y = sales))+ 
+#  geom_smooth(method='lm',formula= sales~TV)
 
+ggplot(data = Advertising, aes(x = TV, y = sales)) +
+            geom_smooth(method = "lm", se=TRUE, color="black", formula = y ~ x) +
+            geom_point(color="blue")
 ```
-
-#### Plotting the Least Squares Line¶
-Let's make predictions for the smallest and largest observed values of x, and then use the predicted values to plot the least squares line
 
 
 #### Confidence in our Model
@@ -204,8 +206,11 @@ We use the `broom` package to convert the messy output of built-in functions in 
 
 ```{r}
 library(broom)
-# tidyres <-tidy(lrmod)
-tidy(lrmod) %>% .$p.value
+lrmod 
+tidy(lrmod)
+
+lrmod %>% .$p.value
+
 
 ```
 If the 95% confidence interval includes zero, the p-value for that coefficient will be greater than 0.05. If the 95% confidence interval does not include zero, the p-value will be less than 0.05. Thus, a p-value less than 0.05 is one way to decide whether there is likely a relationship between the feature and the response. (Again, using 0.05 as the cutoff is just a convention.)
@@ -225,7 +230,9 @@ Let's calculate the R-squared value for our simple linear model:
 Let's calculate the R-squared value for our simple linear model:
 
 ```{r}
+glance(lrmod)
 rSquared <- glance(lrmod)[1,1]
+
 rSquared
 ```
 Is that a "good" R-squared value? It's hard to say. The threshold for a good R-squared value depends widely on the domain. Therefore, it's most useful as a tool for comparing different models.
@@ -313,7 +320,7 @@ Advertising$Size = as.factor(Advertising$Size)
 Advertising
 #levels(Advertising$Size)
 mlrmodc2   <- lm(sales ~ ., data = Advertising)
-summary(mlrmod)
+summary(mlrmodc2)
 ```
 
 How do we interpret the IsLarge coefficient? For a given amount of TV/Radio/Newspaper ad spending, being a small market is associated with an average increase in Sales of 256.56 widgets (as compared to a large market, which is called the baseline level).
@@ -327,6 +334,7 @@ Let's create a new feature called Area, and randomly assign observations to be r
 # Advertising<-  read_csv('http://www-bcf.usc.edu/~gareth/ISL/Advertising.csv')
 # Advertising[,1] <- NULL 
 # set a seed for reproducibility
+ set.seed(2)
 nums          = runif(nrow(Advertising), 0, 1) 
 # initially set Size to small, then change
 mask_suburban = (nums > 0.33) & (nums < 0.66)
@@ -342,7 +350,7 @@ summary(mlrmodc)
 
 #### How do we interpret the coefficients?
 
-Holding all other variables fixed, being a suburban area is associated with an average decrease in Sales of 131.589 widgets (as compared to the baseline level, which is rural). Being an urban area is associated with an average increase in Sales of 157.600 widgets (as compared to rural).
+Holding all other variables fixed, being a suburban area is associated with an average decrease in Sales of 246 widgets (as compared to the baseline level, which is rural). Being an urban area is associated with an average increase in Sales of 70 widgets (as compared to rural).
 
 A final note about dummy encoding: If you have categories that can be ranked (i.e., strongly disagree, disagree, neutral, agree, strongly agree), you can potentially use a single dummy variable and represent the categories numerically (such as 1, 2, 3, 4, 5).
 

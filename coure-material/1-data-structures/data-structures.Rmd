@@ -23,7 +23,7 @@ assign("a", 1.7)       # assign a value to a vector with only one element (~ sca
 To show the values:
 
 ```{r}  
- a                      # show the value in the screen (not valid in scripts)
+a                      # show the value in the screen (not valid in scripts)
 print(a)               # show the value in the screen (valid in scripts)
 ```
 
@@ -69,15 +69,14 @@ To generate repetitions:
 a <- 1:3; b <- rep(a, times=3); c <- rep(a, each=3)         # command rep()
 ```
 
-In the previous example we have run three commands in the same line. They have been separated by a ‘;’.
-
+In the previous example we have run three commands in the same line. They have been separated by a 
 The content of the three variables is now:
 ```{r}  
 a  # print(a)
 b 
 c
 ```
-The recycling rule: vectors of different sizes can be combined, as far as the length of the longer vector is a multiple of the shorter vector’s length (otherwise a warning is issued, although the operation is carried out):
+The recycling rule: vectors of different sizes can be combined, as far as the length of the longer vector is a multiple of the shorter vectors length (otherwise a warning is issued, although the operation is carried out):
 
 ```{r}  
 a+c                                         # proper dimensions
@@ -171,11 +170,13 @@ If additional information is available (for instance, the morphological type of 
 ```{r}  
 morfo <- c("Sab","E","Sab","S0","E","E","S0","S0","E","Sab","E","Sab","S0") # morphological info (same size)
 length(morfo)                                       # ensure vector is the same size
+class(morfo)
 ```
 
 ```{r}  
 fmorfo <- factor(morfo)                             # create factor with 'factor()'
 fmorfo
+class(fmorfo)
 ```
 
 
@@ -191,6 +192,8 @@ Lists are ordered collections of objects, where the elements can be of a differe
 ```{r}  
 gal <- list(name="NGC3379", morf="E", T.RC3=-5, colours=c(0.53,0.96))
 gal
+col <- gal$colours
+col+6
 ```
 
 

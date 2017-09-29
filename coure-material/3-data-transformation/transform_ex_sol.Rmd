@@ -120,18 +120,18 @@ missing values always at the end.
 
 ### Exercises
 
-1. How could you use `arrange()` to sort all missing values to the start? (Hint: use `is.na()`).
+1. How could you use `arrange()` to sort all missing values for coulmn dep_time to the start? (Hint: use `is.na()`).
 
 This sorts by increasing `dep_time`, but with all missing values put first.
 ```{r}
-arrange(flights, desc(is.na(dep_time)), dep_time)
+arrange(flights, desc(is.na(dep_time)))
 ```
 
 2. Sort flights to find the most delayed flights. Find the flights that left earliest.
 
 The most delayed flights are found by sorting by `dep_delay` in descending order.
 ```{r}
-arrange(flights, desc(dep_delay))
+arrange(flights, desc(dep_delay), year , month,day)
 ```
 If we sort `dep_delay` in ascending order, we get those that left earliest.
 There was a flight that left 43 minutes early.
@@ -176,7 +176,8 @@ using `ends_with()` doesn't work well since it would bget `sched_arr_time` and `
 
 It ignores the duplicates, and that variable is only included once. No error, warning, or message is emited.
 ```{r}
-select(flights, year, month, day, year, year)
+df <- select(flights, year, month, day, year, year)
+df %>% distinct(year,month)
 ```
 
 3. What does the `one_of()` function do? Why might it be helpful in conjunction with this vector?
@@ -209,7 +210,7 @@ select(flights, contains("TIME", ignore.case = FALSE))
 
 ### Exercises
 
-1. Currently `dep_time` and `sched_dep_time` are convenient to look at, but hard to compute with because they’re not really continuous numbers. Convert them to a more convenient representation of number of minutes since midnight.
+1. Currently `dep_time` and `sched_dep_time` are convenient to look at, but hard to compute with because they are not really continuous numbers. Convert them to a more convenient representation of number of minutes since midnight.
 
 To get the departure times in the number of minutes, (integer) divide `dep_time` by 100 to get the hours since midnight and muliply by 60 and add the remainder of `dep_time` divided by 100.
 ```{r}
@@ -224,6 +225,7 @@ This would be more cleanly done by first definining a funciton and reusing that:
 time2mins <- function(x) {
   x %/% 100 * 60 + x %% 100
 }
+#source("myfunction.R")
 mutate(flights,
        dep_time_mins = time2mins(dep_time),
        sched_dep_time_mins = time2mins(sched_dep_time)) %>%
@@ -334,10 +336,10 @@ They may be combining different flights?
 ```{r}
 cancelled_delayed <- 
   flights %>%
-  mutate(cancelled = (is.na(arr_delay) | is.na(dep_delay))) %>%
+  mutate(cancelled = (is.na(arr_time) | is.na(dep_time))) %>%
   group_by(year, month, day) %>%
   summarise(prop_cancelled = mean(cancelled),
-            avg_dep_delay = mean(dep_delay, na.rm = TRUE))
+            avg_dep_delay  = mean(dep_delay, na.rm = TRUE))
 
 ggplot(cancelled_delayed, aes(x = avg_dep_delay, prop_cancelled)) +
   geom_point() +
@@ -371,7 +373,7 @@ However, you'd really want to compare it to the average delay of the desination 
 
 I think this requires grouped mutate (but I may be wrong):
 ```{r}
-flights %>%
+df <- flights %>%
   arrange(tailnum, year, month, day) %>%
   group_by(tailnum) %>%
   mutate(delay_gt1hr = dep_delay > 60) %>%

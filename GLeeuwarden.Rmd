@@ -93,7 +93,7 @@ knitr::opts_chunk$set(
 
 ### __Day 1: Data visualisation and transformation__ 
 
-\
+
 
 
 * Introduction to RStudio
